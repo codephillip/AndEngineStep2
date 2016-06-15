@@ -42,6 +42,7 @@ public class MainActivity extends SimpleBaseGameActivity {
         sprite = new Circle(300, 300, circleRegion, this.getVertexBufferObjectManager());
         Scene scene = new Scene();
         scene.attachChild(sprite);
+        scene.registerTouchArea(sprite);
         scene.setBackground(new Background(Color.GREEN));
         return scene;
     }
