@@ -7,9 +7,11 @@ import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.adt.color.Color;
@@ -24,9 +26,13 @@ public class MainActivity extends SimpleBaseGameActivity {
     private static int CAMERA_LENGTH = 480;
 
     private BitmapTextureAtlas bitmapTextureAtlas;
+    private BitmapTextureAtlas backBitmapTextureAtlas;
 
     private ITiledTextureRegion iTiledTextureRegion;
     private AnimatedSprite walkSprite;
+
+    private ITextureRegion backTextureRegion;
+    private Sprite backSprite;
 
     @Override
     protected void onCreateResources() throws IOException {
@@ -34,18 +40,28 @@ public class MainActivity extends SimpleBaseGameActivity {
         //bitmapTextureAtlas of size 512 by 512
         //TextureOptions.BILINEAR_PREMULTIPLYALPHA smoothes out the pixel distortion
         bitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 512, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        backBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 1024, TextureOptions.DEFAULT);
         iTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(bitmapTextureAtlas, this, "walk2.png", 0, 0, 8, 1);
+
+        backTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backBitmapTextureAtlas, this, "parallax_background_layer_back.png", 0, 0);
         /** [NOTE] load the BitmapTextureAtlas*/
+        backBitmapTextureAtlas.load();
         bitmapTextureAtlas.load();
     }
 
     @Override
     protected Scene onCreateScene() {
+        final float positionX = CAMERA_WIDTH * 0.5f;
+        final float positionY = CAMERA_LENGTH * 0.5f;
+
         Scene scene = new Scene();
 
         // 60, 60 is the position the sprite will be place
         walkSprite = new AnimatedSprite(120, 120, iTiledTextureRegion, this.getVertexBufferObjectManager());
         walkSprite.animate(50);
+        backSprite = new Sprite(positionX, positionY, backTextureRegion, mEngine.getVertexBufferObjectManager());
+
+        scene.attachChild(backSprite);
         scene.attachChild(walkSprite);
         scene.setBackground(new Background(Color.WHITE));
         return scene;
