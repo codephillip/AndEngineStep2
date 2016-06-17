@@ -36,6 +36,7 @@ public class MainActivity extends BaseGameActivity {
     private Rectangle mRectangle;
     private float initialX = 120;
     private float initialY = 120;
+    private float HALF_RECTANGLE_DIMENSIONS = 50;
 
     @Override
     public EngineOptions onCreateEngineOptions() {
@@ -128,27 +129,27 @@ public class MainActivity extends BaseGameActivity {
         CardinalSplineMoveModifier.CardinalSplineMoveModifierConfig config = new CardinalSplineMoveModifier.CardinalSplineMoveModifierConfig(4, -1);
 
         // Setup the x coords for spline movement
-//        final float xCoords[] =
-//                {
-//                        HALF_RECTANGLE_DIMENSIONS, // x1
-//                        WIDTH * 0.5f, // x2
-//                        WIDTH - HALF_RECTANGLE_DIMENSIONS, // x3
-//                        HALF_RECTANGLE_DIMENSIONS // x4
-//                };
+        final float xCoords[] =
+                {
+                        HALF_RECTANGLE_DIMENSIONS, // x1
+                        WIDTH * 0.5f, // x2
+                        WIDTH - HALF_RECTANGLE_DIMENSIONS, // x3
+                        HALF_RECTANGLE_DIMENSIONS // x4
+                };
 //
 //        // Setup the y coords for spline movement
-//        final float yCoords[] =
-//                {
-//                        HEIGHT - HALF_RECTANGLE_DIMENSIONS, // y1
-//                        HALF_RECTANGLE_DIMENSIONS, // y2
-//                        HEIGHT - HALF_RECTANGLE_DIMENSIONS, // y3
-//                        HALF_RECTANGLE_DIMENSIONS // y4
-//                };
+        final float yCoords[] =
+                {
+                        HEIGHT - HALF_RECTANGLE_DIMENSIONS, // y1
+                        HALF_RECTANGLE_DIMENSIONS, // y2
+                        HEIGHT - HALF_RECTANGLE_DIMENSIONS, // y3
+                        HALF_RECTANGLE_DIMENSIONS // y4
+                };
 
         // Apply the x and y coords to the config
-//        for(int i = 0; i < xCoords.length; i++){
-//            config.setControlPoint(i, xCoords[i], yCoords[i]);
-//        }
+        for(int i = 0; i < xCoords.length; i++){
+            config.setControlPoint(i, xCoords[i], yCoords[i]);
+        }
 
         // Setup the cardinal spline modifier,  with the above config
         CardinalSplineMoveModifier ModifierD = new CardinalSplineMoveModifier(10, config);
