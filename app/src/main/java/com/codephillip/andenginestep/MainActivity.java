@@ -1,5 +1,7 @@
 package com.codephillip.andenginestep;
 
+import android.util.Log;
+
 import org.andengine.audio.music.Music;
 import org.andengine.audio.music.MusicFactory;
 import org.andengine.engine.camera.Camera;
@@ -19,6 +21,7 @@ import java.io.IOException;
 
 public class MainActivity extends BaseGameActivity {
 
+    private static final String TAG = "MUTED";
     private Camera camera;
     private Scene scene;
     private static int CAMERA_WIDTH = 800;
@@ -50,7 +53,7 @@ public class MainActivity extends BaseGameActivity {
         buttonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(bitmapTextureAtlas, this, "faces.png",0 ,0 , 2, 1);
         bitmapTextureAtlas.load();
 
-        music = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), this, "mfx/gameSound.mp3");
+        music = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), this, "mfx/gamemenu.mp3");
         pOnCreateResourcesCallback.onCreateResourcesFinished();
     }
 
@@ -87,6 +90,32 @@ public class MainActivity extends BaseGameActivity {
         scene.registerTouchArea(muteTiledSprite);
         scene.attachChild(muteTiledSprite);
         pOnPopulateSceneCallback.onPopulateSceneFinished();
+    }
+
+    @Override
+    public synchronized void onResumeGame() {
+        super.onResumeGame();
+        Log.d(TAG, "onResumeGame: ");
+
+        /* If the music and button have been created */
+        if (music != null && muteTiledSprite != null) {
+			/* If the mMuteButton is set to unmuted on resume... */
+            if(muteTiledSprite.getCurrentTileIndex() == UNMUTED){
+				/* Play the menu music */
+                music.play();
+            }
+        }
+    }
+
+    @Override
+    public synchronized void onPauseGame() {
+        super.onPauseGame();
+        Log.d(TAG, "onPauseGame: ");
+
+        /* Always pause the music on pause */
+        if(muteTiledSprite != null && music.isPlaying()){
+            music.pause();
+        }
     }
 }
 
