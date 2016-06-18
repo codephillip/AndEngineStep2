@@ -27,7 +27,8 @@ public class MainActivity extends BaseGameActivity {
     private static final float CAMERA_MAX_CENTER_X = WIDTH * 0.5f + 25;
 
     /* Camera scroll speed factor */
-    private static final float SCROLL_FACTOR = 5;
+//    private static final float SCROLL_FACTOR = 5;
+    private static final float SCROLL_FACTOR = 10;
 
     private Scene mScene;
     private Camera mCamera;
@@ -54,27 +55,52 @@ public class MainActivity extends BaseGameActivity {
                 float offsetCenterX = 0;
 
 				/* If incrementX is true... */
-                if(incrementX){
+//                if(incrementX){
+//
+//					/* offset the camera's x coordinate according to time passed */
+//                    offsetCenterX = currentCenterX + pSecondsElapsed * SCROLL_FACTOR;
+//
+//					/* If the new offset coordinate is greater than the max X limit */
+//                    if(offsetCenterX >= CAMERA_MAX_CENTER_X){
+//
+//						/* Set to decrement the camera's X coordinate next */
+//                        incrementX = false;
+//                    }
+//                } else {
+//					/* If increment is equal to false, decrement X coordinate */
+//                    offsetCenterX = currentCenterX - pSecondsElapsed * SCROLL_FACTOR;
+//
+//					/* If the new offset coordinate is less than the min X limit */
+//                    if(offsetCenterX <= CAMERA_MIN_CENTER_X){
+//
+//						/* Set to increment the camera's X coordinate next */
+//                        incrementX = true;
+//                    }
+//                }
+
+
+                /* If incrementX is true... */
+                if(false){
 
 					/* offset the camera's x coordinate according to time passed */
                     offsetCenterX = currentCenterX + pSecondsElapsed * SCROLL_FACTOR;
 
 					/* If the new offset coordinate is greater than the max X limit */
-                    if(offsetCenterX >= CAMERA_MAX_CENTER_X){
-
-						/* Set to decrement the camera's X coordinate next */
-                        incrementX = false;
-                    }
+//                    if(offsetCenterX >= CAMERA_MAX_CENTER_X){
+//
+//						/* Set to decrement the camera's X coordinate next */
+//                        incrementX = false;
+//                    }
                 } else {
-					/* If increment is equal to false, decrement X coordinate */
+//					/* If increment is equal to false, decrement X coordinate */
                     offsetCenterX = currentCenterX - pSecondsElapsed * SCROLL_FACTOR;
-
-					/* If the new offset coordinate is less than the min X limit */
-                    if(offsetCenterX <= CAMERA_MIN_CENTER_X){
-
-						/* Set to increment the camera's X coordinate next */
-                        incrementX = true;
-                    }
+//
+//					/* If the new offset coordinate is less than the min X limit */
+//                    if(offsetCenterX <= CAMERA_MIN_CENTER_X){
+//
+//						/* Set to increment the camera's X coordinate next */
+//                        incrementX = true;
+//                    }
                 }
 
 				/* Apply the offset position to the camera */
