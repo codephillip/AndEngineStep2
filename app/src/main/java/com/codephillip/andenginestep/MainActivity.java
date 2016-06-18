@@ -4,6 +4,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.sprite.Sprite;
@@ -15,6 +16,7 @@ import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtla
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.ui.activity.BaseGameActivity;
+import org.andengine.util.adt.color.Color;
 
 
 public class MainActivity extends BaseGameActivity {
@@ -157,6 +159,20 @@ public class MainActivity extends BaseGameActivity {
 		 * placing the Sprites at different heights on the Scene */
         final float textureHeight = mHillTextureRegion.getHeight();
 
+        /* Attach a set of four rectangles to the screen */
+//        Rectangle rectangleOne = new Rectangle(ca - DIMENSION * 0.5f,
+//                CENTER_Y - DIMENSION * 0.5f, DIMENSION, DIMENSION,
+//                mEngine.getVertexBufferObjectManager());
+
+        Rectangle rectangle = new Rectangle(100, 100, 40, 40, mEngine.getVertexBufferObjectManager());
+        rectangle.setColor(Color.RED);
+
+        Rectangle rectangle2 = new Rectangle(100, 300, 40, 40, mEngine.getVertexBufferObjectManager());
+        rectangle2.setColor(Color.GREEN);
+
+        Rectangle rectangle3 = new Rectangle(100, 400, 40, 40, mEngine.getVertexBufferObjectManager());
+        rectangle3.setColor(Color.BLUE);
+
 		/* Create the hill which will appear to be the furthest
 		 * into the distance. This Sprite will be placed higher than the
 		 * rest in order to retain visibility of it */
@@ -175,9 +191,14 @@ public class MainActivity extends BaseGameActivity {
         Sprite hillClosest = new Sprite(WIDTH * 0.5f, textureHeight * 0.5f, mHillTextureRegion,
                 mEngine.getVertexBufferObjectManager());
 
+        hillClosest.attachChild(rectangle);
+        hillMid.attachChild(rectangle2);
+        hillFurthest.attachChild(rectangle3);
+
+
 		/* Create the ParallaxBackground, setting the color values to represent
 		 * a blue sky */
-        ParallaxBackground background = new ParallaxBackground(0.3f, 0.3f, 0.9f) {
+        ParallaxBackground background = new ParallaxBackground(0.3f, 1f, 0.9f) {
 
             /* We'll use these values to calculate the
              * parallax value of the background */
