@@ -4,13 +4,21 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
-import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.scene.background.EntityBackground;
+import org.andengine.entity.scene.background.SpriteBackground;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import java.io.IOException;
+
+/**
+ * The SpriteBackground class allows us to attach a single Sprite object to our scene
+ *as a background image
+ */
 
 public class MainActivity extends BaseGameActivity {
 
@@ -19,6 +27,9 @@ public class MainActivity extends BaseGameActivity {
     private Scene scene;
     private static int CAMERA_WIDTH = 800;
     private static int CAMERA_HEIGHT = 480;
+
+    private BitmapTextureAtlas backgroundBitmapTextureAtlas;
+    private ITextureRegion backgroundTextureRegion;
 
 
 
@@ -31,6 +42,10 @@ public class MainActivity extends BaseGameActivity {
 
     @Override
     public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws IOException {
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+        backgroundBitmapTextureAtlas = new BitmapTextureAtlas(mEngine.getTextureManager(), 800, 600);
+        backgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundBitmapTextureAtlas, this, "background.png", 0, 0);
+        backgroundBitmapTextureAtlas.load();
         pOnCreateResourcesCallback.onCreateResourcesFinished();
     }
 
@@ -48,10 +63,16 @@ public class MainActivity extends BaseGameActivity {
 /* Create a rectangle in the top right corner of the Scene */
         Rectangle rectangleRight = new Rectangle(CAMERA_WIDTH - 100, CAMERA_HEIGHT - 100, 200, 200, mEngine.getVertexBufferObjectManager());
 
-        Entity backgroundEntity = new Entity();
+//        Entity backgroundEntity = new Entity();
+//
+//        backgroundEntity.attachChild(rectangleLeft);
+//        backgroundEntity.attachChild(rectangleRight);
 
-        backgroundEntity.attachChild(rectangleLeft);
-        backgroundEntity.attachChild(rectangleRight);
+        final float positionX = CAMERA_WIDTH * 0.5f;
+        final float positionY = CAMERA_HEIGHT * 0.5f;
+
+        Sprite sprite = new Sprite(positionX, positionY, backgroundTextureRegion, mEngine.getVertexBufferObjectManager());
+
 
         /* Define the background color properties */
         final float red = 0;
@@ -59,9 +80,12 @@ public class MainActivity extends BaseGameActivity {
         final float blue = 0;
 /* Create the EntityBackground, specifying its background color &
 entity to represent the background image */
-        EntityBackground background = new EntityBackground(red, green,
-                blue, backgroundEntity);
+//        EntityBackground background = new EntityBackground(red, green,
+//                blue, backgroundEntity);
 /* Set & enable the background */
+
+        SpriteBackground background = new SpriteBackground(red, green, blue, sprite);
+
         scene.setBackground(background);
         scene.setBackgroundEnabled(true);
 
