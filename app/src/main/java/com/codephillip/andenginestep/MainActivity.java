@@ -10,6 +10,7 @@ import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.ui.activity.BaseGameActivity;
 
@@ -43,7 +44,7 @@ public class MainActivity extends BaseGameActivity {
     @Override
     public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws IOException {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        backgroundBitmapTextureAtlas = new BitmapTextureAtlas(mEngine.getTextureManager(), 800, 600);
+        backgroundBitmapTextureAtlas = new BitmapTextureAtlas(mEngine.getTextureManager(), 800, 600, BitmapTextureFormat.RGB_565);
         backgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundBitmapTextureAtlas, this, "background.png", 0, 0);
         backgroundBitmapTextureAtlas.load();
         pOnCreateResourcesCallback.onCreateResourcesFinished();
