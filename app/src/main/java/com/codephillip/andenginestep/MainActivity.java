@@ -6,6 +6,7 @@ import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.ui.activity.BaseGameActivity;
 
 /**
@@ -20,13 +21,15 @@ import org.andengine.ui.activity.BaseGameActivity;
 
 public class MainActivity extends BaseGameActivity {
 
+    public static MainActivity instance;
+
     public static final int WIDTH = 800;
     public static final int HEIGHT = 480;
 
     private static final int RECTANGLE_WIDTH = 80;
     private static final int RECTANGLE_HEIGHT = RECTANGLE_WIDTH;
 
-    private Scene mScene;
+    public static CustomScene mScene;
     private Camera mCamera;
 
     private Rectangle mRectangleOne;
@@ -50,7 +53,7 @@ public class MainActivity extends BaseGameActivity {
 
     @Override
     public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) {
-        mScene = new Scene();
+        mScene = new CustomScene();
 
         pOnCreateSceneCallback.onCreateSceneFinished(mScene);
     }
@@ -58,7 +61,7 @@ public class MainActivity extends BaseGameActivity {
     @Override
     public void onPopulateScene(Scene pScene,
                                 OnPopulateSceneCallback pOnPopulateSceneCallback) {
-
+        instance = this;
 		/* Define the first rectangle's coordinates in the center of the Scene */
         final float x = WIDTH * 0.5f;
         final float y = HEIGHT * 0.5f;
@@ -141,7 +144,18 @@ public class MainActivity extends BaseGameActivity {
 				/* Proceed with the rest of this Entity's update process */
                 super.onManagedUpdate(pSecondsElapsed);
             }
+
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+                if (pSceneTouchEvent.isActionUp()){
+                    mScene.clearScene();
+                    mScene.attachChild(mRectangleOne);
+                }
+                return true;
+            }
         };
+
+        mScene.registerTouchArea(mRectangleTwo);
 
 		/* Set the second rectangle's color to red */
         mRectangleTwo.setColor(org.andengine.util.adt.color.Color.RED);
