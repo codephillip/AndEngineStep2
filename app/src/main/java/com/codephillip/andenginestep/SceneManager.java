@@ -2,15 +2,13 @@ package com.codephillip.andenginestep;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
-import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.ui.activity.BaseGameActivity;
-import org.andengine.util.adt.color.Color;
 
 /**
  * Created by codephillip on 7/15/16.
@@ -35,10 +33,11 @@ public class SceneManager {
     }
 
     public void loadSplashResources() {
-        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        splashTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
-        splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, this.activity, "splash.png", 0, 0);
-        splashTextureAtlas.load();
+        ResourceManager.loadSplashScreeResources();
+//        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+//        splashTextureAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+//        splashTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(splashTextureAtlas, this.activity, "splash.png", 0, 0);
+//        splashTextureAtlas.load();
     }
 
     public void loadGameResources() {
@@ -50,11 +49,8 @@ public class SceneManager {
     }
 
     public Scene createSplashScene() {
-        splashScene = new Scene();
-        splashScene.setBackground(new Background(Color.RED));
-
-        Sprite sprite = new Sprite(camera.getWidth() / 2, camera.getHeight() / 2, splashTextureRegion, engine.getVertexBufferObjectManager());
-        splashScene.attachChild(sprite);
+        SplashScene splashScene = new SplashScene(camera, engine);
+        splashScene.attachChild(new Entity());
         return splashScene;
     }
 
@@ -64,6 +60,7 @@ public class SceneManager {
 
         Sprite sprite = new Sprite(camera.getWidth() / 2, camera.getHeight() / 2, splashTextureRegion, engine.getVertexBufferObjectManager());
         menuScene.attachChild(sprite);
+
         return menuScene;
     }
 
