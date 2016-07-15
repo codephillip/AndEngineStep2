@@ -2,6 +2,8 @@ package com.codephillip.andenginestep;
 
 import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.scene.Scene;
+import org.andengine.entity.sprite.ButtonSprite;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 
 public abstract class ManagedGameScene extends ManagedScene {
@@ -12,7 +14,7 @@ public abstract class ManagedGameScene extends ManagedScene {
 	public ManagedGameScene() {
 		// Let the Scene Manager know that we want to show a Loading Scene for at least 2 seconds.
 		this(2f);
-	};
+	}
 	
 	public ManagedGameScene(float pLoadingScreenMinimumSecondsShown) {
 		super(pLoadingScreenMinimumSecondsShown);
@@ -54,53 +56,53 @@ public abstract class ManagedGameScene extends ManagedScene {
 		// Load the resources to be used in the Game Scenes.
 		ResourceManager.loadGameResources();
 		
-//		// Create a Sprite to use as the background.
-//		this.attachChild(new Sprite(0,0,ResourceManager.gameBackgroundTextureRegion,ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
-//		this.getLastChild().setScaleCenter(0f,0f);
-//		this.getLastChild().setScaleX(800f);
-//		
-//		// Setup the HUD Buttons and Button Texts.
-//		// Take note of what happens when the buttons are clicked.
-//		ButtonSprite MainMenuButton = new ButtonSprite(0f,0f, 
-//				ResourceManager.buttonTiledTextureRegion.getTextureRegion(0), 
-//				ResourceManager.buttonTiledTextureRegion.getTextureRegion(1), 
-//				ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-//		MainMenuButton.setScale(1/ResourceManager.getInstance().cameraScaleFactorX, 1/ResourceManager.getInstance().cameraScaleFactorY);
-//		MainMenuButton.setPosition((MainMenuButton.getWidth()*MainMenuButton.getScaleX())/2f, (MainMenuButton.getHeight()*MainMenuButton.getScaleY())/2f);
-//		MainMenuButton.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(ButtonSprite pButtonSprite,
-//					float pTouchAreaLocalX, float pTouchAreaLocalY) {
-//				// Play the click sound and show the Main Menu.
-//				ResourceManager.clickSound.play();
-//				SceneManager.getInstance().showMainMenu();
-//			}});
-//		
-//		Text MainMenuButtonText = new Text(MainMenuButton.getWidth()/2,MainMenuButton.getHeight()/2,ResourceManager.fontDefault32Bold,"MENU",ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-//		MainMenuButton.attachChild(MainMenuButtonText);
-//		GameHud.attachChild(MainMenuButton);
-//		GameHud.registerTouchArea(MainMenuButton);
-//		
-//		ButtonSprite OptionsButton = new ButtonSprite(0f,0f, 
-//				ResourceManager.buttonTiledTextureRegion.getTextureRegion(0), 
-//				ResourceManager.buttonTiledTextureRegion.getTextureRegion(1), 
-//				ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-//		OptionsButton.setScale(1/ResourceManager.getInstance().cameraScaleFactorX, 1/ResourceManager.getInstance().cameraScaleFactorY);
-//		OptionsButton.setPosition(800f-((OptionsButton.getWidth()*OptionsButton.getScaleX())/2f), (OptionsButton.getHeight()*OptionsButton.getScaleY())/2f);
-//		OptionsButton.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(ButtonSprite pButtonSprite,
-//					float pTouchAreaLocalX, float pTouchAreaLocalY) {
-//				// Play the click sound and show the Options Layer.
-//				ResourceManager.clickSound.play();
-//				SceneManager.getInstance().showOptionsLayer(true);
-//			}});
-//		
-//		Text OptionsButtonText = new Text(0,0,ResourceManager.fontDefault32Bold,"OPTIONS",ResourceManager.getInstance().engine.getVertexBufferObjectManager());
-//		OptionsButtonText.setPosition((OptionsButton.getWidth())/2, (OptionsButton.getHeight())/2);
-//		OptionsButton.attachChild(OptionsButtonText);
-//		GameHud.attachChild(OptionsButton);
-//		GameHud.registerTouchArea(OptionsButton);
+		// Create a Sprite to use as the background.
+		this.attachChild(new Sprite(0,0,ResourceManager.gameBackgroundTextureRegion,ResourceManager.getInstance().engine.getVertexBufferObjectManager()));
+		this.getLastChild().setScaleCenter(0f,0f);
+		this.getLastChild().setScaleX(800f);
+
+		// Setup the HUD Buttons and Button Texts.
+		// Take note of what happens when the buttons are clicked.
+		ButtonSprite MainMenuButton = new ButtonSprite(0f,0f,
+				ResourceManager.buttonTiledTextureRegion.getTextureRegion(0),
+				ResourceManager.buttonTiledTextureRegion.getTextureRegion(1),
+				ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+		MainMenuButton.setScale(1/ResourceManager.getInstance().cameraScaleFactorX, 1/ResourceManager.getInstance().cameraScaleFactorY);
+		MainMenuButton.setPosition((MainMenuButton.getWidth()*MainMenuButton.getScaleX())/2f, (MainMenuButton.getHeight()*MainMenuButton.getScaleY())/2f);
+		MainMenuButton.setOnClickListener(new ButtonSprite.OnClickListener() {
+			@Override
+			public void onClick(ButtonSprite pButtonSprite,
+					float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				// Play the click sound and show the Main Menu.
+				ResourceManager.clickSound.play();
+				SceneManager.getInstance().showMainMenu();
+			}});
+
+		Text MainMenuButtonText = new Text(MainMenuButton.getWidth()/2,MainMenuButton.getHeight()/2,ResourceManager.fontDefault32Bold,"MENU",ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+		MainMenuButton.attachChild(MainMenuButtonText);
+		GameHud.attachChild(MainMenuButton);
+		GameHud.registerTouchArea(MainMenuButton);
+
+		ButtonSprite OptionsButton = new ButtonSprite(0f,0f,
+				ResourceManager.buttonTiledTextureRegion.getTextureRegion(0),
+				ResourceManager.buttonTiledTextureRegion.getTextureRegion(1),
+				ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+		OptionsButton.setScale(1/ResourceManager.getInstance().cameraScaleFactorX, 1/ResourceManager.getInstance().cameraScaleFactorY);
+		OptionsButton.setPosition(800f-((OptionsButton.getWidth()*OptionsButton.getScaleX())/2f), (OptionsButton.getHeight()*OptionsButton.getScaleY())/2f);
+		OptionsButton.setOnClickListener(new ButtonSprite.OnClickListener() {
+			@Override
+			public void onClick(ButtonSprite pButtonSprite,
+					float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				// Play the click sound and show the Options Layer.
+				ResourceManager.clickSound.play();
+				SceneManager.getInstance().showOptionsLayer(true);
+			}});
+
+		Text OptionsButtonText = new Text(0,0,ResourceManager.fontDefault32Bold,"OPTIONS",ResourceManager.getInstance().engine.getVertexBufferObjectManager());
+		OptionsButtonText.setPosition((OptionsButton.getWidth())/2, (OptionsButton.getHeight())/2);
+		OptionsButton.attachChild(OptionsButtonText);
+		GameHud.attachChild(OptionsButton);
+		GameHud.registerTouchArea(OptionsButton);
 	}
 	
 	@Override
