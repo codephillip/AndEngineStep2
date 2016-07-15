@@ -50,7 +50,8 @@ public class MainActivity extends BaseGameActivity {
 //                sceneManager.setCurrentScene(AllScenes.MENU);
 //            }
 //        }));
-        sceneManager.createSplashScene();
         pOnPopulateSceneCallback.onPopulateSceneFinished();
     }
+
+
 }
