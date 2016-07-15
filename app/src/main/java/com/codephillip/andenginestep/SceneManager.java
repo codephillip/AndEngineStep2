@@ -2,7 +2,6 @@ package com.codephillip.andenginestep;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
@@ -50,7 +49,8 @@ public class SceneManager {
 
     public Scene createSplashScene() {
         SplashScene splashScene = new SplashScene(camera, engine);
-        splashScene.attachChild(new Entity());
+        splashScene.attachChild(null);
+        splashScene.registerTouchArea(null);
         return splashScene;
     }
 
