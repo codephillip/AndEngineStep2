@@ -10,7 +10,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 
 public class ResourceManager extends Object {
 
-	private static final ResourceManager INSTANCE = new ResourceManager();
+	private static ResourceManager INSTANCE = null;
 
 	public Engine engine;
 	public Context context;
@@ -24,6 +24,7 @@ public class ResourceManager extends Object {
 	}
 
 	public static ResourceManager getInstance(){
+		if (INSTANCE == null) INSTANCE = new ResourceManager();
 		return INSTANCE;
 	}
 
@@ -34,7 +35,7 @@ public class ResourceManager extends Object {
 		cameraHeight = pCameraHeight;
 	}
 
-	public static void loadSplashScreeResources(){
+	public static void loadSplashScreenResources(){
 		getInstance().loadSplashTextures();
 //		getInstance().loadSharedResources();
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");

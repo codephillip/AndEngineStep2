@@ -24,7 +24,6 @@ public class MainActivity extends BaseGameActivity {
 
     @Override
     public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws IOException {
-//        sceneManager.loadSplashResources();
         ResourceManager.getInstance().setup(this.getEngine(), this.getApplicationContext(), CAMERA_WIDTH, CAMERA_HEIGHT);
 //        SceneManager.loadSplashResources();
         SceneManager.loadMenuResources();
@@ -39,16 +38,6 @@ public class MainActivity extends BaseGameActivity {
 
     @Override
     public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws IOException {
-
-//        mEngine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
-//            @Override
-//            public void onTimePassed(TimerHandler pTimerHandler) {
-//                mEngine.unregisterUpdateHandler(pTimerHandler);
-//                sceneManager.loadMenuResources();
-//                sceneManager.createMenuScene();
-//                sceneManager.setCurrentScene(AllScenes.MENU);
-//            }
-//        }));
         pOnPopulateSceneCallback.onPopulateSceneFinished();
     }
 
