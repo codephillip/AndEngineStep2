@@ -12,7 +12,7 @@ public class ResourceManager extends Object {
 
 	private static ResourceManager INSTANCE = null;
 
-	public Engine engine;
+	public static Engine engine;
 	public Context context;
 	public float cameraWidth;
 	public float cameraHeight;

@@ -22,6 +22,7 @@ public class MenuScene extends Scene {  private static final String TAG = Splash
     Engine engine;
     Sprite sprite;
     Context context;
+    private Sprite sprite2;
 
     public MenuScene(Context context, Engine engine) {
         this.context = context;
@@ -50,6 +51,25 @@ public class MenuScene extends Scene {  private static final String TAG = Splash
                 return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
             }
         };
+        sprite2 = new Sprite(800 / 2 + 100, 480 / 2 + 500, ResourceManager.splashTextureRegion, engine.getVertexBufferObjectManager()) {
+            @Override
+            public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+                switch (pSceneTouchEvent.getAction()) {
+                    case TouchEvent.ACTION_DOWN:
+                        this.setAlpha(0.5f);
+                        break;
+                    case TouchEvent.ACTION_UP:
+                        this.setAlpha(1.0f);
+//                        updateUI();
+                        Log.d(TAG, "onAreaTouched: clicked: MENU CLASS");
+                        SceneManager.loadSplashResources();
+                        SceneManager.setCurrentScene(AllScenes.SPLASH, SceneManager.createSplashScene());
+                        break;
+                }
+                return super.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
+            }
+        };
+        super.attachChild(sprite2);
         super.attachChild(sprite);
     }
 

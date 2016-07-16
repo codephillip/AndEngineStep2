@@ -55,19 +55,19 @@ public class SceneManager {
         switch (currentScene) {
             case SPLASH:
                 Log.d(TAG, "setCurrentScene: SPLASH SCENE");
-                ResourceManager.getInstance().engine.setScene(scene);
+                ResourceManager.engine.setScene(scene);
                 //this case we don't really have to worry about
                 break;
             case MENU:
                 Log.d(TAG, "setCurrentScene: MENU SCENE");
                 //once we setup the engine we'll tell it
                 //to load the menu scene
-                ResourceManager.getInstance().engine.setScene(scene);
+                ResourceManager.engine.setScene(scene);
                 break;
             case GAME:
                 //once we setup the engine we'll tell it
                 //to load the game scene
-                ResourceManager.getInstance().engine.setScene(scene);
+                ResourceManager.engine.setScene(scene);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown sceen");
