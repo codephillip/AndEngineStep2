@@ -1,9 +1,9 @@
 package com.codephillip.andenginestep;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.andengine.engine.Engine;
-import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -12,27 +12,24 @@ import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.ui.activity.BaseGameActivity;
 
 /**
  * Created by codephillip on 7/15/16.
  */
 public class SplashScene extends Scene {
     private static final String TAG = SplashScene.class.getSimpleName();
-    Camera camera;
     Engine engine;
     Sprite sprite;
-    BaseGameActivity activity;
+    Context context;
 
-    public SplashScene(BaseGameActivity activity, Camera camera, Engine engine) {
-        this.camera = camera;
+    public SplashScene(Context context, Engine engine) {
+        this.context = context;
         this.engine = engine;
-        this.activity = activity;
     }
 
     @Override
     public void attachChild(IEntity pEntity) {
-        sprite = new Sprite(camera.getWidth() / 2, camera.getHeight() / 2, ResourceManager.splashTextureRegion, engine.getVertexBufferObjectManager()){
+        sprite = new Sprite(600 / 2, 480 / 2, ResourceManager.splashTextureRegion, engine.getVertexBufferObjectManager()){
             @Override
             public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
                 switch (pSceneTouchEvent.getAction()) {
@@ -61,14 +58,15 @@ public class SplashScene extends Scene {
         super.registerUpdateHandler(pUpdateHandler);
     }
 
+    //creates a delay of 3 seconds
     public void updateUI(){
-        this.registerUpdateHandler(new TimerHandler(5f, true, new ITimerCallback() {
+        this.registerUpdateHandler(new TimerHandler(3f, true, new ITimerCallback() {
             @Override
             public void onTimePassed(TimerHandler pTimerHandler) {
-                SceneManager sceneManager = new SceneManager(activity, engine, camera);
-                sceneManager.loadMenuResources();
-                sceneManager.createMenuScene();
-                sceneManager.setCurrentScene(AllScenes.MENU);
+                //stops the timer
+                unregisterUpdateHandler(pTimerHandler);
+                SceneManager.loadMenuResources();
+                SceneManager.setCurrentScene(AllScenes.MENU, SceneManager.createMenuScene());
             }
         }));
     }

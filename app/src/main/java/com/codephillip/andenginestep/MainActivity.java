@@ -14,7 +14,6 @@ public class MainActivity extends BaseGameActivity {
     private Camera camera;
     private static int CAMERA_WIDTH = 800;
     private static int CAMERA_HEIGHT = 800;
-    private SceneManager sceneManager;
 
     @Override
     public EngineOptions onCreateEngineOptions() {
@@ -25,17 +24,17 @@ public class MainActivity extends BaseGameActivity {
 
     @Override
     public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws IOException {
-        sceneManager = new SceneManager(this, mEngine, camera);
 //        sceneManager.loadSplashResources();
         ResourceManager.getInstance().setup(this.getEngine(), this.getApplicationContext(), CAMERA_WIDTH, CAMERA_HEIGHT);
-        ResourceManager.loadSplashScreeResources();
+//        SceneManager.loadSplashResources();
+        SceneManager.loadMenuResources();
         pOnCreateResourcesCallback.onCreateResourcesFinished();
     }
 
     @Override
     public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) throws IOException {
-        sceneManager = new SceneManager(this, mEngine, camera);
-        pOnCreateSceneCallback.onCreateSceneFinished(sceneManager.createSplashScene());
+//        pOnCreateSceneCallback.onCreateSceneFinished(SceneManager.createSplashScene());
+        pOnCreateSceneCallback.onCreateSceneFinished(SceneManager.createMenuScene());
     }
 
     @Override
